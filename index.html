@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #2e2d2d;
+        }
+
+        #login-container {
+            width: 300px;
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color:#141414; 
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #forgot-password {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        #error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-container">
+        <img src="logo.png" alt="Logo">
+
+        <input type="text" id="username" placeholder="Username" oninput="validateEmail()">
+        
+        <input type="password" id="password" placeholder="Password" oninput="validatePassword()">
+
+        <button onclick="login()">Login</button>
+
+        <p id="forgot-password"><a href="mailto:support@smartserv.io?subject=Password Reset">Forgot your password?</a></p>
+
+        <p id="error-message"></p>
+    </div>
+
+    <script>
+        function validateEmail() {
+            const emailInput = document.getElementById('username');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(emailInput.value)) {
+                showError("Invalid email format");
+            } else {
+                showError("");
+            }
+        }
+
+        function validatePassword() {
+            const passwordInput = document.getElementById('password');
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@])[A-Za-z\d@]{8,}$/;
+
+            if (!passwordRegex.test(passwordInput.value)) {
+                showError("Invalid password format. It must contain at least 1 uppercase letter, 1 number, and only allow '@' as a special character & should of length 8");
+            } else {
+                showError("");
+            }
+        }
+
+        function login() {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const errorMessage = document.getElementById('error-message');
+
+            if (passwordInput.value === "SmartServTest@123") {
+                window.location.href = "dashboard.html";
+            }
+            else {
+                showError("Invalid username or password");
+            }
+        }
+
+        function showError(message) {
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.textContent = message;
+        }
+    </script>
+
+</body>
+</html>
